@@ -1,15 +1,20 @@
 <?php
 session_start();
-header("Content-Type:text/html;charset=UTF-8");
-
-if ($_GET['lang']) {
-    $_SESSION['lang'] = trim(strip_tags($_GET['lang']));
-    setcookie('lang', trim(strip_tags($_GET['lang'])), $date);
-} else if ($_COOKIE['lang']) {
-    $_SESSION['lang'] = $_COOKIE['lang'];
+if (isset($_GET['lang'])) {
+    $dict = parse_ini_file($_GET['lang'] . '.ini');
+    echo $_GET['lang'];
+    $_SESSION['lang'] = $_GET['lang'];
 } else {
-    $_SESSION['lang'] = 'en';
+    $dict = parse_ini_file('RU.ini');
 }
+// if (isset($_GET['lang'])) {
+//     $_SESSION['lang'] = trim(strip_tags($_GET['lang']));
+//     setcookie('lang', trim(strip_tags($_GET['lang'])), $date);
+// } else if (isset($_COOKIE['lang'])) {
+//     $_SESSION['lang'] = $_COOKIE['lang'];
+// } else {
+//     $_SESSION['lang'] = 'en';
+// }
 
 
 // $lang = isset($_GET["lang"]) ? $_GET["lang"] : "ru";
@@ -49,6 +54,7 @@ if ($_GET['lang']) {
 
     <div class="basic">
         <div class="container">
+            <p><?php echo $dict['TEXT'] ?></p>
         </div>
     </div>
 

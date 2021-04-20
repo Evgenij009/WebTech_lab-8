@@ -39,7 +39,6 @@ p {
 .header {
     width: 100%;
     height: 110px;
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -78,4 +77,9 @@ p {
 
 .basic {
     color: aqua;
+    width: 100%;
+    height: 210px;
+    top: 0;
+    left: 0;
+    right: 0;
 }
