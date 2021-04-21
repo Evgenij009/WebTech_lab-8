@@ -1,25 +1,17 @@
 <?php
 session_start();
+
 if (isset($_GET['lang'])) {
-    $dict = parse_ini_file($_GET['lang'] . '.ini');
-    echo $_GET['lang'];
-    $_SESSION['lang'] = $_GET['lang'];
+    $_SESSION['lang'] = trim(strip_tags($_GET['lang']));
+    $date = time() + 30 * 24 * 60 * 60;
+    setcookie('lang', trim(strip_tags($_GET['lang'])), $date);
+} else if ($_COOKIE['lang']) {
+    $_SESSION['lang'] = $_COOKIE['lang'];
 } else {
-    $dict = parse_ini_file('RU.ini');
+    $_SESSION['lang'] = 'en';
 }
-// if (isset($_GET['lang'])) {
-//     $_SESSION['lang'] = trim(strip_tags($_GET['lang']));
-//     setcookie('lang', trim(strip_tags($_GET['lang'])), $date);
-// } else if (isset($_COOKIE['lang'])) {
-//     $_SESSION['lang'] = $_COOKIE['lang'];
-// } else {
-//     $_SESSION['lang'] = 'en';
-// }
-
-
-// $lang = isset($_GET["lang"]) ? $_GET["lang"] : "ru";
-// $array = parse_ini_file($lang . ".ini");
-// echo $array["HELLO"];
+if (isset($_SESSION['lang']))
+    $dict = parse_ini_file($_SESSION['lang'] . '.ini');
 ?>
 
 <!DOCTYPE html>
@@ -32,25 +24,7 @@ if (isset($_GET['lang'])) {
 
 <body>
 
-    <div class="header">
-        <div class="container">
-            <div class="header__inner">
-                <div class="lang">
-                    <label for="lang">Choose language<label>
-                            <select name="lang">
-                                <option value="en">EN</option>
-                                <option value="ru">RU</option>
-                            </select>
-                </div>
-
-                <nav class="nav">
-                    <a href="#" class="nav__link">Main</a>
-                    <a href="page1.php" class="nav__link">Page1</a>
-                    <a href="page2.php" class="nav__link">Page2</a>
-                </nav>
-            </div>
-        </div>
-    </div>
+    <?php include("header.php") ?>
 
     <div class="basic">
         <div class="container">
